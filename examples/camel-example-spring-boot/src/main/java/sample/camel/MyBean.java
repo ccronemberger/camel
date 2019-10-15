@@ -16,23 +16,36 @@
  */
 package sample.camel;
 
+import lombok.extern.log4j.Log4j2;
+import org.apache.camel.Message;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
- * A bean that returns a message when you call the {@link #saySomething()} method.
+ * A bean that returns a message when you call the {@link #saySomething(Message)} method.
  * <p/>
  * Uses <tt>@Component("myBean")</tt> to register this bean with the name <tt>myBean</tt>
  * that we use in the Camel route to lookup this bean.
  */
 @Component("myBean")
+@Log4j2
 public class MyBean {
 
     @Value("${greeting}")
     private String say;
 
-    public String saySomething() {
-        return say;
-    }
+    private int numero = 0;
 
+    public String saySomething(Message message) throws InterruptedException {
+        log.info("processando " + message.getBody(String.class));
+        Thread.sleep(2000);
+        log.info("fim " + message.getBody(String.class));
+        /*synchronized (this) {
+            numero++;
+            if (numero % 2 == 0) {
+                throw new RuntimeException("erro proposital");
+            }
+        }*/
+        return say + " " + message.getBody(String.class);
+    }
 }
