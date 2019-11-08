@@ -18,13 +18,14 @@ package sample.camel;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 //CHECKSTYLE:OFF
 /**
  * A sample Spring Boot application that starts the Camel routes.
  */
 @SpringBootApplication
-public class MyCamelApplication {
+public class MyCamelApplication extends SpringBootServletInitializer {
 
     /**
      * A main method to start this application.
