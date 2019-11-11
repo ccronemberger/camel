@@ -22,23 +22,20 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.apache.camel.example</groupId>
-        <artifactId>examples</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
-    </parent>
+    <groupId>br.com.rabobank</groupId>
+    <artifactId>streamer-poc</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
-    <artifactId>camel-example-spring-boot</artifactId>
-    <name>Camel :: Example :: Spring Boot</name>
-    <description>An example showing how to work with Camel and Spring Boot</description>
+    <name>Streamer PoC</name>
+    <description>Streamer PoC</description>
     <packaging>war</packaging>
 
     <properties>
         <category>Beginner</category>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring.boot-version>2.2.1.RELEASE</spring.boot-version> <!-- ${spring-boot-version} -->
+        <camel-version>3.0.0-SNAPSHOT</camel-version>
     </properties>
 
     <dependencyManagement>
@@ -55,71 +52,9 @@
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-spring-boot-dependencies</artifactId>
-                <version>${project.version}</version>
+                <version>${camel-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!-- por hora para resolver o problema de diferentes versões do Spring eu coloquei cada
-                 dependência diretamente aqui-->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>5.2.1.RELEASE</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-beans</artifactId>
-                <version>5.2.1.RELEASE</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-webmvc</artifactId>
-                <version>5.2.1.RELEASE</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-aop</artifactId>
-                <version>5.2.1.RELEASE</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>5.2.1.RELEASE</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-expression</artifactId>
-                <version>5.2.1.RELEASE</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
-                <version>5.2.1.RELEASE</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-jcl</artifactId>
-                <version>5.2.1.RELEASE</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-test</artifactId>
-                <version>5.2.1.RELEASE</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-tx</artifactId>
-                <version>5.2.1.RELEASE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -186,7 +121,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot-version}</version>
+                <version>${spring.boot-version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -199,7 +134,7 @@
             <plugin>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-maven-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>${camel-version}</version>
                 <!-- allows to fail if not all routes are covered during testing -->
                 <!--
                         <configuration>
@@ -207,6 +142,16 @@
                           <coverageThreshold>90</coverageThreshold>
                         </configuration>
                 -->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
             </plugin>
         </plugins>
     </build>
